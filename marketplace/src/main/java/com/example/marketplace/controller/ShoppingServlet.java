@@ -91,12 +91,10 @@ public class ShoppingServlet extends HttpServlet {
         Customer customer = getCustomer(customerId);
         ShoppingItem shoppingItem = new ShoppingItem(product);
         if (product != null && customerId != 0 && customer.getMoneyAmount() >= product.getPrice()) {
-            int[] updatedBuyers = shoppingItem.getBuyers();
-            updatedBuyers[customerId - 1] = customerId;
+            Customer[] updatedBuyers = shoppingItem.getBuyers();
+            updatedBuyers[customerId - 1] = getCustomer(customerId);
             customer.setMoneyAmount(customer.getMoneyAmount() - product.getPrice());
             shoppingItem.setBuyers(updatedBuyers);
-
-
         }
         if (cart == null) {
             cart = new ArrayList<ShoppingItem>();
